@@ -1,8 +1,11 @@
 var express = require("express")
 var bodyParser = require('body-parser');  
+const cors = require('cors')
+
 app=express()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}))
+app.use(cors())
 fs =require('fs')
 
 
@@ -24,6 +27,6 @@ app.post("/", (req,res)=>{
   //if used send status 1
 })
 
-app.listen(3000, () => {
+app.listen(3000,'0.0.0.0', () => {
   console.log("server starting on port : 3000" )
 });
