@@ -35,7 +35,10 @@ app.get("/botState", (req,res) => {
     res.json({botState: "Busy"});
   }
 });
-
+//state of the battery
+app.get("/batteryState", (req,res) => {
+    res.json({batteryState: databack["batterystate"]});
+});
 
 app.listen(8000,'0.0.0.0', () => {
   console.log("server starting on port : 8000" )
