@@ -25,11 +25,18 @@ app.post("/", (req,res)=>{
   //if used send status 1
 })
 
+//state of the robot
+var databack = require('./databack.json');
 app.get("/botState", (req,res) => {
-  res.json({botState: "busy"});
-  // res.json({botState: "Available"});
+  if(databack["botstate"]== true){
+    res.json({botState: "Available"});
+  }
+  if(databack["botstate"]== false){
+    res.json({botState: "Busy"});
+  }
 });
 
-app.listen(3000,'0.0.0.0', () => {
-  console.log("server starting on port : 3000" )
+
+app.listen(8000,'0.0.0.0', () => {
+  console.log("server starting on port : 8000" )
 });
