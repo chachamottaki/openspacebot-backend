@@ -11,10 +11,8 @@ fs =require('fs')
 
 var data = {
   "Led":0,
-  
 }
 fs.writeFileSync(__dirname+'/data.json', JSON.stringify(data))
-
 
 app.get("/", (req,res)=>{
   res.json(data)
@@ -26,6 +24,11 @@ app.post("/", (req,res)=>{
   res.json({"status":0}).status(200)
   //if used send status 1
 })
+
+app.get("/botState", (req,res) => {
+  res.json({botState: "busy"});
+  // res.json({botState: "Available"});
+});
 
 app.listen(3000,'0.0.0.0', () => {
   console.log("server starting on port : 3000" )
