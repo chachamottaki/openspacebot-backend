@@ -10,7 +10,7 @@ fs =require('fs')
 
 
 var data = {
-  "Led":0,
+  "desk":0,
 }
 fs.writeFileSync(__dirname+'/data.json', JSON.stringify(data))
 
