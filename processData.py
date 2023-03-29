@@ -12,28 +12,20 @@ ser = serial.Serial(
         timeout=1
 )
 
+   
+
 
 def ProcessData(data):
-    #Code pour alummer led ou ske tu veux selon data 
-    # pour linstant il n'ya que Led1 et Led2 dans data
-    # tu modifies api pour ajouter ou supprimer
-    # et tu fais ske tu veux en les utilisant ici
-    print(data)
-    if int(data["Led"])==1:
-        #allumer led
-        #led.on()
-        msj=1
-        ser.write(msj.to_bytes(1, 'little'))
-        pass
-    else:
-        #éteindre led
-        #led.off()
-        msj=0
-        ser.write(msj.to_bytes(1, 'little'))
-        pass
+    print(int(data["Desk"]))    
+    desk=int(data["Desk"])
+    ser.write(desk.to_bytes(1, 'little'))
+    pass
+    
+    
+    
 
 #initialize Gpio pins for Led
-led= LED(21)
+#led= LED(21)
 
 #read initial data from json file
 with open("data.json",'r') as f: #si data.json est situé autre part écris le chemin complet
@@ -45,13 +37,32 @@ while True:
         #read new data from json file
         with open("data.json",'r') as f: #si data.json est situé autre part écris le chemin complet
             data = json.loads(f.read())
+        
+        
+        state = ser.readline().decode().strip()
+        statex = json.loads(state)
+            
+        with open("databack.json",'r+') as f: #si data.json est situé autre part écris le chemin complet
+            databack = json.load(f)
+            databack["botstate"] = statex["botstate"]
+            f.seek(0)
+            databack["batterystate"] = statex["batterystate"]
+            f.seek(1)
+            json.dump(databack, f,indent=4)
+            f.close()
 
+            #print(state)
+            print(statex["botstate"])
+            
+        
         #if data changed, process it
         if data != old_data:
             ProcessData(data)
             old_data = data
+        
+        
         #wait a bit before checking new data
         sleep(0.1)
     except:
         pass
-Led.close()
+#Led.close()

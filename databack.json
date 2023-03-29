@@ -1,4 +1,4 @@
-{
-    "botstate":true,
-    "batterystate":80
+{{
+    "botstate": "busy",
+    "batterystate": 25
 }
