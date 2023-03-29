@@ -1,6 +1,16 @@
 import json
 from time import sleep
 from gpiozero import LED
+import time
+import serial
+ser = serial.Serial(
+        port='/dev/ttyUSB0', #Replace ttyS0 with ttyAM0 for Pi1,Pi2,Pi0
+        baudrate = 115200,
+       # parity=serial.PARITY_NONE,
+       # stopbits=serial.STOPBITS_ONE,
+       # bytesize=serial.EIGHTBITS,
+        timeout=1
+)
 
 
 def ProcessData(data):
@@ -11,11 +21,15 @@ def ProcessData(data):
     print(data)
     if int(data["Led"])==1:
         #allumer led
-        led.on()
+        #led.on()
+        msj=1
+        ser.write(msj.to_bytes(1, 'little'))
         pass
     else:
         #éteindre led
-        led.off()
+        #led.off()
+        msj=0
+        ser.write(msj.to_bytes(1, 'little'))
         pass
 
 #initialize Gpio pins for Led
