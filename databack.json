@@ -1,4 +1,5 @@
 {
     "botstate": "busy",
-    "batterystate": 25
+    "batterystate": 25,
+    "location":5
 }

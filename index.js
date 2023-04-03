@@ -28,16 +28,15 @@ app.post("/", (req,res)=>{
 //state of the robot
 var databack = require('./databack.json');
 app.get("/botState", (req,res) => {
-  if(databack["botstate"]== true){
-    res.json({botState: "Available"});
-  }
-  if(databack["botstate"]== false){
-    res.json({botState: "Busy"});
-  }
+  res.json({botState: databack["botstate"]});
 });
 //state of the battery
 app.get("/batteryState", (req,res) => {
     res.json({batteryState: databack["batterystate"]});
+});
+//location of the robot
+app.get("/botLocation", (req,res) => {
+  res.json({botLocation: databack["location"]});
 });
 
 app.listen(8000,'0.0.0.0', () => {

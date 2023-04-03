@@ -12,20 +12,11 @@ ser = serial.Serial(
         timeout=1
 )
 
-   
-
-
 def ProcessData(data):
     print(int(data["Desk"]))    
     desk=int(data["Desk"])
     ser.write(desk.to_bytes(1, 'little'))
     pass
-    
-    
-    
-
-#initialize Gpio pins for Led
-#led= LED(21)
 
 #read initial data from json file
 with open("data.json",'r') as f: #si data.json est situé autre part écris le chemin complet
@@ -48,6 +39,8 @@ while True:
             f.seek(0)
             databack["batterystate"] = statex["batterystate"]
             f.seek(1)
+            databack["location"] = statex["location"]
+            f.seek(2)
             json.dump(databack, f,indent=4)
             f.close()
 
