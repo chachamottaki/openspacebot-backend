@@ -41,6 +41,8 @@ while True:
             f.seek(1)
             databack["location"] = statex["location"]
             f.seek(2)
+            databack["weight"] = statex["weight"]
+            f.seek(3)
             json.dump(databack, f,indent=4)
             f.close()
 

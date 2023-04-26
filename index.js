@@ -26,17 +26,30 @@ app.post("/", (req,res)=>{
 })
 
 //state of the robot
-var databack = require('./databack.json');
+// var databack = require('./databack.json');
+
 app.get("/botState", (req,res) => {
+  var databack = fs.readFileSync(__dirname+'/databack.json',{encoding:'utf8'});
+  databack = JSON.parse(databack)
   res.json({botState: databack["botstate"]});
 });
 //state of the battery
 app.get("/batteryState", (req,res) => {
-    res.json({batteryState: databack["batterystate"]});
+  var databack = fs.readFileSync(__dirname+'/databack.json',{encoding:'utf8'});
+  databack = JSON.parse(databack)
+  res.json({batteryState: databack["batterystate"]});
 });
 //location of the robot
 app.get("/botLocation", (req,res) => {
+  var databack = fs.readFileSync(__dirname+'/databack.json',{encoding:'utf8'});
+  databack = JSON.parse(databack)
   res.json({botLocation: databack["location"]});
+});
+//package weight
+app.get("/package", (req,res) => {
+  var databack = fs.readFileSync(__dirname+'/databack.json',{encoding:'utf8'});
+  databack = JSON.parse(databack)
+  res.json({packageWeight: databack["weight"]});
 });
 
 app.listen(8000,'0.0.0.0', () => {
