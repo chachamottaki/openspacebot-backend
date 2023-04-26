@@ -52,6 +52,14 @@ app.get("/package", (req,res) => {
   res.json({packageWeight: databack["weight"]});
 });
 
+//destination
+app.get("/dest", (req,res) => {
+  var databack = fs.readFileSync(__dirname+'/data.json',{encoding:'utf8'});
+  databack = JSON.parse(databack)
+  res.json({destination: databack["desk"]});
+});
+
+
 app.listen(8000,'0.0.0.0', () => {
   console.log("server starting on port : 8000" )
 });
